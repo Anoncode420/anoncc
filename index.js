@@ -140,13 +140,15 @@ async function fillAndSubmitCardDetails(cardFrame, cardDetails, fakeCvv) {
  * @param {number} cardDetails.expireYear - Card expire year
  * @param {number} cardDetails.cvv - Card cvv
  */
+const cacheDir = path.join(os.homedir(), '.cache', 'puppeteer');
+
 async function registerUser(cardDetails) {
     const _startedTime = new Date().getTime();
     const _requiredDetails = getRequiredDetails();
     const { email, nickName, password, firstName, lastName } = _requiredDetails;
     const _fakeCvv = utils.generateUnqiueCvv(cardDetails.cvv);
     Logger.debug(`Registering user with email: ${email} | nickName: ${nickName} | password: ${password} | firstName: ${firstName} | lastName: ${lastName}`);
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: false, cacheDirectory });
     const page = await browser.newPage();
     try {
         await page.goto('https://getkinky.com/signup');
