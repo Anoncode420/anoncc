@@ -9,6 +9,8 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 let telegramBot = null;
 const _sleep = util.promisify(setTimeout);
+const path = require('path');
+const os = require('os');
 
 async function startTool() {
     await importantTaskBeforeStart();
